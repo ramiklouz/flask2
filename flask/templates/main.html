@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            Regular Expression
+        </title>
+       
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nbar.css') }}">
+
+    </head>
+    
+<body>
+    <nav id="topnav">
+        
+        <a id="logo" class="nav-link" href="#">REGEX</a>
+        
+        <a id="login" class="nav-link" href="{{url_for('login')}}">Login</a>
+        <a id="signin" class="nav-link" href="{{url_for('Signup')}}">Sign up</a>
+      
+
+        <a id="about" class="nav-link" href="#">About Me</a>
+     </nav>
+ 
+    <br>
+    <br>
+    <br>
+    <form id="pdfreader" action="REGEX.ipynb" method="post">
+    
+        <p>Welcome to<span class="fancy">REGEX</span></p>
+   <center> <label><h1><i>choose a file to extract:</i></h1></label>
+    <input type="file" name="pdffile" accept="text/plain , .pdf"></center>
+    
+   <div class="cont">  
+        <button class="btn" value="Uploadpdf"><span>Submit</span> <img src="{{url_for('static', filename='regex.png')}}"  height="60" width="60"></button>
+
+        </div></form>
+        <form method="get">
+        <textarea id="result" name="story" rows="15" cols="100" readonly >
+         {{result}}
+</textarea>
+
+    </form>
+    <script>
+        document.getElementById("pdfreader").addEventListener("submit", function(event){
+            event.preventDefault();
+            var formData = new FormData();
+            formData.append("file", document.getElementById("pdffile").files[0]);
+            fetch('/Uploadpdf', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById("result").innerHTML = data;})
+        });
+    </script>
+    
+    
+</body>
+</html>
